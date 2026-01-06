@@ -171,6 +171,19 @@ export const api = {
       responses: {
         200: z.string(),
       },
+    },
+    generateContentIdeas: {
+      method: 'POST' as const,
+      path: '/api/content-ideas',
+      body: z.object({
+        keyword: z.string(),
+      }),
+      responses: {
+        200: z.object({
+          blogTitles: z.array(z.string()),
+          questions: z.array(z.string()),
+        }),
+      },
     }
   }
 };

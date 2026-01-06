@@ -13,10 +13,21 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 // Mock DataForSEO if keys missing
 const MOCK_RANKINGS = true;
 
+import { registerChatRoutes } from "./replit_integrations/chat";
+import { registerImageRoutes } from "./replit_integrations/image";
+import OpenAI from "openai";
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  const openai = new OpenAI({
+    apiKey: process.env.AI_INTEGRATIONS_OPENAI_API_KEY,
+    baseURL: process.env.AI_INTEGRATIONS_OPENAI_BASE_URL,
+  });
+
+  registerChatRoutes(app);
+  registerImageRoutes(app);
 
   // Initialize settings
   await storage.initializeSettings();
@@ -220,6 +231,35 @@ export async function registerRoutes(
   app.get(api.settings.getDbStats.path, async (req, res) => {
     const stats = await storage.getDbStats();
     res.json(stats);
+  });
+
+  // Content Ideas (AI)
+  app.post(api.settings.generateContentIdeas.path, async (req, res) => {
+    try {
+      const { keyword } = api.settings.generateContentIdeas.body.parse(req.body);
+      
+      const response = await openai.chat.completions.create({
+        model: "gpt-5.1",
+        messages: [
+          {
+            role: "system",
+            content: "You are an SEO content strategist. Provide output in JSON format."
+          },
+          {
+            role: "user",
+            content: `Generate 5 catchy blog post titles and 3 'People Also Ask' questions for the keyword: "${keyword}". Return as JSON with keys 'blogTitles' (array) and 'questions' (array).`
+          }
+        ],
+        response_format: { type: "json_object" }
+      });
+
+      const content = JSON.parse(response.choices[0].message.content || "{}");
+      await storage.addActivityLog({ message: `Generated AI content ideas for: "${keyword}"` });
+      res.json(content);
+    } catch (err) {
+      console.error("AI Generation failed:", err);
+      res.status(500).json({ message: "Failed to generate ideas" });
+    }
   });
 
   // Export to CSV

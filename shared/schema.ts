@@ -2,6 +2,9 @@ import { pgTable, text, serial, integer, timestamp, boolean, jsonb } from "drizz
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
+import { sql } from "drizzle-orm";
+
+export * from "./models/chat";
 
 // Projects (Websites to track)
 export const projects = pgTable("projects", {
