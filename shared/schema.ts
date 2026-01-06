@@ -31,6 +31,10 @@ export const rankHistory = pgTable("rank_history", {
   googleRank: integer("google_rank"),
   bingRank: integer("bing_rank"),
   ddgRank: integer("ddg_rank"),
+  serpData: jsonb("serp_data").$type<{
+    google: { position: number; url: string; title: string }[];
+    bing: { position: number; url: string; title: string }[];
+  }>(),
   checkedAt: timestamp("checked_at").defaultNow().notNull(),
 });
 

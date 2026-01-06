@@ -156,8 +156,17 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-gradient-to-br from-card to-card/50 border-white/5 shadow-xl">
-          <CardHeader className="pb-2">
+          <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Projects</CardTitle>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="engine-compare" className="text-[10px] text-muted-foreground uppercase">Google vs Bing</Label>
+              <Switch 
+                id="engine-compare" 
+                checked={engineCompare} 
+                onCheckedChange={setEngineCompare}
+                className="scale-75"
+              />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline gap-2">
@@ -224,12 +233,14 @@ export default function Dashboard() {
                   <div className="flex items-center gap-4 pt-4 border-t border-white/5">
                     <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
                       <TrendingUp className="w-3.5 h-3.5" />
-                      <span>Keywords</span>
+                      <span>Google: {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRank || "--"}</span>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                      <Users className="w-3.5 h-3.5" />
-                      <span>Competitors</span>
-                    </div>
+                    {engineCompare && (
+                      <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground animate-in fade-in slide-in-from-left-2">
+                        <Layers className="w-3.5 h-3.5 text-blue-400" />
+                        <span>Bing: {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.bingRank || "--"}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </Link>

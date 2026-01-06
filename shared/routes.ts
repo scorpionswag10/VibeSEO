@@ -184,6 +184,13 @@ export const api = {
           questions: z.array(z.string()),
         }),
       },
+    },
+    sendWeeklyReport: {
+      method: 'POST' as const,
+      path: '/api/send-weekly-report',
+      responses: {
+        200: z.object({ success: z.boolean() }),
+      },
     }
   }
 };

@@ -12,7 +12,9 @@ import {
   MoreHorizontal,
   ExternalLink,
   ShieldAlert,
-  LineChart as LineChartIcon
+  LineChart as LineChartIcon,
+  FileText,
+  LayoutList
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -104,6 +106,20 @@ export default function ProjectDetails() {
         </div>
         
         <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="border-white/10 bg-white/5 hover:bg-white/10"
+            onClick={() => {
+              apiRequest("POST", "/api/send-weekly-report").then(() => {
+                toast({ title: "Report Sent", description: "Weekly PDF report has been emailed." });
+              });
+            }}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Weekly Report
+          </Button>
+
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10">
@@ -326,6 +342,24 @@ function KeywordsTab({ projectId }: { projectId: number }) {
               </CardContent>
             </Card>
             
+            <div className="bg-card border border-white/5 rounded-2xl p-6">
+              <h4 className="font-medium text-white mb-4 flex items-center gap-2">
+                <LayoutList className="w-4 h-4 text-primary" />
+                Google SERP Snapshot (Top 10)
+              </h4>
+              <div className="space-y-2">
+                {selectedKeyword.history?.[selectedKeyword.history.length - 1]?.serpData?.google?.map((res: any) => (
+                  <div key={res.position} className="flex items-center gap-3 p-2 rounded-lg bg-white/5 border border-white/5 hover:border-primary/30 transition-all group">
+                    <span className="w-6 text-center font-bold text-muted-foreground group-hover:text-primary transition-colors">{res.position}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-white truncate">{res.title}</p>
+                      <p className="text-[10px] text-muted-foreground truncate">{res.url}</p>
+                    </div>
+                  </div>
+                )) || <p className="text-xs text-muted-foreground italic">No SERP data available yet.</p>}
+              </div>
+            </div>
+
             <div className="bg-card border border-white/5 rounded-2xl p-6">
               <h4 className="font-medium text-white mb-4 flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-primary" />

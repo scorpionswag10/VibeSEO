@@ -88,7 +88,7 @@ export class DatabaseStorage implements IStorage {
     await db.delete(keywords).where(eq(keywords.id, id));
   }
 
-  async addRankHistory(history: Omit<RankHistory, "id" | "checkedAt">): Promise<RankHistory> {
+  async addRankHistory(history: any): Promise<RankHistory> {
     const [entry] = await db.insert(rankHistory).values(history).returning();
     // Update lastCheck on keyword
     await db.update(keywords)
