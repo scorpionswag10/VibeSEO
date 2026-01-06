@@ -1,6 +1,6 @@
 import { useProjects, useCreateProject } from "@/hooks/use-projects";
 import { Link } from "wouter";
-import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users, RefreshCw } from "lucide-react";
+import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users, RefreshCw, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
@@ -23,11 +23,14 @@ import { cn } from "@/lib/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { Switch } from "@/components/ui/switch";
+import { Layers } from "lucide-react";
 
 export default function Dashboard() {
   const { data: projects, isLoading } = useProjects();
   const { mutate: createProject, isPending: isCreating } = useCreateProject();
   const [open, setOpen] = useState(false);
+  const [engineCompare, setEngineCompare] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
