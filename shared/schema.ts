@@ -50,6 +50,13 @@ export const settings = pgTable("settings", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Activity Logs
+export const activityLogs = pgTable("activity_logs", {
+  id: serial("id").primaryKey(),
+  message: text("message").notNull(),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+});
+
 // Relations
 export const projectsRelations = relations(projects, ({ many }) => ({
   keywords: many(keywords),
@@ -78,11 +85,14 @@ export const competitorsRelations = relations(competitors, ({ one }) => ({
   }),
 }));
 
+// Activity Logs Relations (None needed for now)
+
 // Schemas
 export const insertProjectSchema = createInsertSchema(projects).omit({ id: true, createdAt: true });
 export const insertKeywordSchema = createInsertSchema(keywords).omit({ id: true, lastCheck: true, createdAt: true });
 export const insertCompetitorSchema = createInsertSchema(competitors).omit({ id: true, backlinksCount: true, topBacklinks: true, lastCheck: true, createdAt: true });
 export const insertSettingsSchema = createInsertSchema(settings).omit({ id: true, updatedAt: true });
+export const insertActivityLogSchema = createInsertSchema(activityLogs).omit({ id: true, timestamp: true });
 
 // Types
 export type Project = typeof projects.$inferSelect;
@@ -94,3 +104,5 @@ export type Competitor = typeof competitors.$inferSelect;
 export type InsertCompetitor = z.infer<typeof insertCompetitorSchema>;
 export type Settings = typeof settings.$inferSelect;
 export type InsertSettings = z.infer<typeof insertSettingsSchema>;
+export type ActivityLog = typeof activityLogs.$inferSelect;
+export type InsertActivityLog = z.infer<typeof insertActivityLogSchema>;

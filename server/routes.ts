@@ -190,6 +190,7 @@ export async function registerRoutes(
   app.post("/api/keywords/sync", async (req, res) => {
     try {
       log("Manual sync triggered");
+      await storage.addActivityLog({ message: "Started manual sync of all keywords" });
       const keywords = await storage.getAllKeywords();
       
       // Run sync in background so response is fast
@@ -199,6 +200,7 @@ export async function registerRoutes(
           await new Promise(resolve => setTimeout(resolve, 500));
         }
         log("Manual sync completed");
+        await storage.addActivityLog({ message: `Completed manual sync of ${keywords.length} keywords` });
       })().catch(err => console.error("Manual sync failed:", err));
 
       res.json({ message: "Sync started in background", count: keywords.length });
@@ -208,11 +210,18 @@ export async function registerRoutes(
     }
   });
 
+  // Get Activity Logs
+  app.get(api.settings.getLogs.path, async (req, res) => {
+    const logs = await storage.getActivityLogs();
+    res.json(logs);
+  });
+
   // --- Background Tasks ---
 
   // Schedule Cron Job: Every day at 2:00 AM
   cron.schedule('0 2 * * *', async () => {
     console.log('Running daily rank check...');
+    await storage.addActivityLog({ message: "Started daily scheduled rank check" });
     const keywords = await storage.getAllKeywords();
     for (const kw of keywords) {
       await checkKeywordRank(kw.id, kw.term);
@@ -220,6 +229,7 @@ export async function registerRoutes(
       await new Promise(resolve => setTimeout(resolve, 500));
     }
     console.log('Daily rank check completed.');
+    await storage.addActivityLog({ message: `Completed daily scheduled rank check of ${keywords.length} keywords` });
   });
 
   // Helper: Check Keyword Rank (Mock vs Real)
@@ -248,6 +258,8 @@ export async function registerRoutes(
       ddgRank: ranks.ddg,
     });
 
+    await storage.addActivityLog({ message: `Updated ranking for keyword: "${term}"` });
+
     // Check for alerts (Top 3)
     if (ranks.google <= 3) {
       const settings = await storage.getSettings();
@@ -268,12 +280,14 @@ export async function registerRoutes(
     ];
     
     await storage.updateCompetitorBacklinks(competitorId, backlinksCount, topBacklinks);
+    await storage.addActivityLog({ message: `Updated backlinks for competitor: ${domain}` });
   }
 
   // Helper: Send Email
   async function sendAlertEmail(to: string, term: string, rank: number) {
     if (!resend) {
       console.log(`[Mock Email] To: ${to}, Subject: Rank Alert! "${term}" is #${rank} on Google`);
+      await storage.addActivityLog({ message: `Email notification alert sent to ${to} (Mock)` });
       return;
     }
 
@@ -284,6 +298,7 @@ export async function registerRoutes(
         subject: `VibeSEO Alert: "${term}" reached #${rank} on Google!`,
         text: `Great news! Your keyword "${term}" is now ranking at position ${rank} on Google.`,
       });
+      await storage.addActivityLog({ message: `Email notification alert sent to ${to}` });
     } catch (error) {
       console.error('Failed to send email:', error);
     }

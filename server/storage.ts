@@ -1,8 +1,8 @@
 import { db } from "./db";
 import {
-  projects, keywords, rankHistory, competitors, settings,
-  type InsertProject, type InsertKeyword, type InsertCompetitor, type InsertSettings,
-  type Project, type Keyword, type RankHistory, type Competitor, type Settings
+  projects, keywords, rankHistory, competitors, settings, activityLogs,
+  type InsertProject, type InsertKeyword, type InsertCompetitor, type InsertSettings, type InsertActivityLog,
+  type Project, type Keyword, type RankHistory, type Competitor, type Settings, type ActivityLog
 } from "@shared/schema";
 import { eq, desc, sql } from "drizzle-orm";
 
@@ -32,6 +32,10 @@ export interface IStorage {
   getSettings(): Promise<Settings | undefined>;
   updateSettings(settings: Partial<InsertSettings>): Promise<Settings>;
   initializeSettings(): Promise<Settings>;
+
+  // Activity Logs
+  getActivityLogs(limit?: number): Promise<ActivityLog[]>;
+  addActivityLog(log: InsertActivityLog): Promise<ActivityLog>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -135,6 +139,15 @@ export class DatabaseStorage implements IStorage {
       .where(eq(settings.id, existing.id))
       .returning();
     return updated;
+  }
+
+  async getActivityLogs(limit: number = 10): Promise<ActivityLog[]> {
+    return await db.select().from(activityLogs).orderBy(desc(activityLogs.timestamp)).limit(limit);
+  }
+
+  async addActivityLog(log: InsertActivityLog): Promise<ActivityLog> {
+    const [newLog] = await db.insert(activityLogs).values(log).returning();
+    return newLog;
   }
 }
 

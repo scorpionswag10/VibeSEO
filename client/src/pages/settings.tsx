@@ -7,18 +7,29 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, CheckCircle2, XCircle, Mail, Database, Send } from "lucide-react";
+import { Loader2, CheckCircle2, XCircle, Mail, Database, Send, ListTodo, Clock } from "lucide-react";
 import { useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "@shared/routes";
+import { format } from "date-fns";
 
 export default function SettingsPage() {
   const { data: settings, isLoading } = useSettings();
   const { mutate: updateSettings, isPending } = useUpdateSettings();
   const { data: integrationStatus } = useIntegrationsStatus();
   const { toast } = useToast();
+
+  const { data: logs, isLoading: isLoadingLogs } = useQuery({
+    queryKey: [api.settings.getLogs.path],
+    queryFn: async () => {
+      const res = await fetch(api.settings.getLogs.path);
+      if (!res.ok) throw new Error("Failed to fetch logs");
+      return res.json();
+    },
+    refetchInterval: 5000, // Poll every 5 seconds for "real-time" feel
+  });
 
   const testEmailMutation = useMutation({
     mutationFn: async () => {
@@ -131,71 +142,107 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
-          <CardHeader>
-            <CardTitle className="text-lg">System Status</CardTitle>
-            <CardDescription>Status of external service integrations.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
-                  <Database className="w-5 h-5 text-blue-500" />
+        <div className="space-y-6">
+          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
+            <CardHeader>
+              <CardTitle className="text-lg">System Status</CardTitle>
+              <CardDescription>Status of external service integrations.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                    <Database className="w-5 h-5 text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">DataForSEO API</p>
+                    <p className="text-xs text-muted-foreground">Ranking data provider</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-white">DataForSEO API</p>
-                  <p className="text-xs text-muted-foreground">Ranking data provider</p>
-                </div>
-              </div>
-              {integrationStatus?.dataForSeo ? (
-                <div className="flex items-center gap-1.5 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Connected
-                </div>
-              ) : (
-                <div className="flex items-center gap-1.5 text-xs font-medium text-red-500 bg-red-500/10 px-2 py-1 rounded-full">
-                  <XCircle className="w-3.5 h-3.5" /> Disconnected
-                </div>
-              )}
-            </div>
-
-            <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-purple-500" />
-                </div>
-                <div>
-                  <p className="font-medium text-white">Email Service</p>
-                  <p className="text-xs text-muted-foreground">Resend API</p>
-                </div>
-              </div>
-              {integrationStatus?.email ? (
-                <div className="flex items-center gap-1.5 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> Connected
-                </div>
-              ) : (
-                <div className="flex items-center gap-1.5 text-xs font-medium text-red-500 bg-red-500/10 px-2 py-1 rounded-full">
-                  <XCircle className="w-3.5 h-3.5" /> Disconnected
-                </div>
-              )}
-            </div>
-
-            {integrationStatus?.email && (
-              <Button 
-                variant="outline" 
-                className="w-full border-white/10 hover:bg-white/5"
-                onClick={() => testEmailMutation.mutate()}
-                disabled={testEmailMutation.isPending}
-              >
-                {testEmailMutation.isPending ? (
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                {integrationStatus?.dataForSeo ? (
+                  <div className="flex items-center gap-1.5 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Connected
+                  </div>
                 ) : (
-                  <Send className="w-4 h-4 mr-2" />
+                  <div className="flex items-center gap-1.5 text-xs font-medium text-red-500 bg-red-500/10 px-2 py-1 rounded-full">
+                    <XCircle className="w-3.5 h-3.5" /> Disconnected
+                  </div>
                 )}
-                Send Test Email
-              </Button>
-            )}
-          </CardContent>
-        </Card>
+              </div>
+
+              <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
+                    <Mail className="w-5 h-5 text-purple-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">Email Service</p>
+                    <p className="text-xs text-muted-foreground">Resend API</p>
+                  </div>
+                </div>
+                {integrationStatus?.email ? (
+                  <div className="flex items-center gap-1.5 text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded-full">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Connected
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1.5 text-xs font-medium text-red-500 bg-red-500/10 px-2 py-1 rounded-full">
+                    <XCircle className="w-3.5 h-3.5" /> Disconnected
+                  </div>
+                )}
+              </div>
+
+              {integrationStatus?.email && (
+                <Button 
+                  variant="outline" 
+                  className="w-full border-white/10 hover:bg-white/5"
+                  onClick={() => testEmailMutation.mutate()}
+                  disabled={testEmailMutation.isPending}
+                >
+                  {testEmailMutation.isPending ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  ) : (
+                    <Send className="w-4 h-4 mr-2" />
+                  )}
+                  Send Test Email
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl">
+            <CardHeader className="pb-2">
+              <div className="flex items-center gap-2">
+                <ListTodo className="w-5 h-5 text-primary" />
+                <CardTitle className="text-lg">Activity Logs</CardTitle>
+              </div>
+              <CardDescription>Real-time list of recent backend actions.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoadingLogs ? (
+                <div className="flex justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+                </div>
+              ) : logs?.length === 0 ? (
+                <p className="text-sm text-center py-8 text-muted-foreground">No recent activity found.</p>
+              ) : (
+                <div className="space-y-4">
+                  {logs?.map((log: any) => (
+                    <div key={log.id} className="flex items-start gap-3 text-sm group">
+                      <div className="mt-1 w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors shrink-0" />
+                      <div className="space-y-1">
+                        <p className="text-white font-medium leading-none">{log.message}</p>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Clock className="w-3 h-3" />
+                          {format(new Date(log.timestamp), "MMM d, h:mm:ss a")}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

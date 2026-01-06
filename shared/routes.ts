@@ -143,6 +143,17 @@ export const api = {
           })),
         }),
       },
+    },
+    getLogs: {
+      method: 'GET' as const,
+      path: '/api/logs',
+      responses: {
+        200: z.array(z.object({
+          id: z.number(),
+          message: z.string(),
+          timestamp: z.string(),
+        })),
+      },
     }
   }
 };
