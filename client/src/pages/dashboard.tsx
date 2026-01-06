@@ -24,7 +24,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Switch } from "@/components/ui/switch";
-import { Layers } from "lucide-react";
 
 export default function Dashboard() {
   const { data: projects, isLoading } = useProjects();
