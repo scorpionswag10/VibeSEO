@@ -36,6 +36,9 @@ export interface IStorage {
   // Activity Logs
   getActivityLogs(limit?: number): Promise<ActivityLog[]>;
   addActivityLog(log: InsertActivityLog): Promise<ActivityLog>;
+
+  // DB Stats
+  getDbStats(): Promise<{ totalKeywords: number; totalRankHistory: number }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -148,6 +151,15 @@ export class DatabaseStorage implements IStorage {
   async addActivityLog(log: InsertActivityLog): Promise<ActivityLog> {
     const [newLog] = await db.insert(activityLogs).values(log).returning();
     return newLog;
+  }
+
+  async getDbStats(): Promise<{ totalKeywords: number; totalRankHistory: number }> {
+    const [keywordsCount] = await db.select({ count: sql<number>`count(*)` }).from(keywords);
+    const [rankHistoryCount] = await db.select({ count: sql<number>`count(*)` }).from(rankHistory);
+    return {
+      totalKeywords: Number(keywordsCount.count),
+      totalRankHistory: Number(rankHistoryCount.count),
+    };
   }
 }
 

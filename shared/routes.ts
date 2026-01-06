@@ -154,6 +154,23 @@ export const api = {
           timestamp: z.string(),
         })),
       },
+    },
+    getDbStats: {
+      method: 'GET' as const,
+      path: '/api/db-stats',
+      responses: {
+        200: z.object({
+          totalKeywords: z.number(),
+          totalRankHistory: z.number(),
+        }),
+      },
+    },
+    exportCsv: {
+      method: 'GET' as const,
+      path: '/api/export-csv',
+      responses: {
+        200: z.string(),
+      },
     }
   }
 };

@@ -216,6 +216,44 @@ export async function registerRoutes(
     res.json(logs);
   });
 
+  // Database Stats
+  app.get(api.settings.getDbStats.path, async (req, res) => {
+    const stats = await storage.getDbStats();
+    res.json(stats);
+  });
+
+  // Export to CSV
+  app.get(api.settings.exportCsv.path, async (req, res) => {
+    try {
+      const allKeywords = await storage.getAllKeywords();
+      const csvRows = [
+        ["Keyword", "Location", "Last Checked", "Google Rank", "Bing Rank", "DDG Rank"].join(",")
+      ];
+
+      for (const kw of allKeywords) {
+        const history = await storage.getRankHistory(kw.id);
+        const latest = history[0]; // Assuming sorted by desc
+        csvRows.push([
+          `"${kw.term}"`,
+          `"${kw.location}"`,
+          kw.lastCheck ? kw.lastCheck.toISOString() : "N/A",
+          latest?.googleRank || "N/A",
+          latest?.bingRank || "N/A",
+          latest?.ddgRank || "N/A"
+        ].join(","));
+      }
+
+      await storage.addActivityLog({ message: "Exported keyword ranking data to CSV" });
+      
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader("Content-Disposition", "attachment; filename=rankings.csv");
+      res.send(csvRows.join("\n"));
+    } catch (err) {
+      console.error("Export failed:", err);
+      res.status(500).json({ message: "Failed to export data" });
+    }
+  });
+
   // --- Background Tasks ---
 
   // Schedule Cron Job: Every day at 2:00 AM

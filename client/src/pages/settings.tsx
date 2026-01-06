@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, CheckCircle2, XCircle, Mail, Database, Send, ListTodo, Clock } from "lucide-react";
+import { Loader2, CheckCircle2, XCircle, Mail, Database, Send, ListTodo, Clock, HardDrive, Download } from "lucide-react";
 import { useEffect } from "react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -30,6 +30,23 @@ export default function SettingsPage() {
     },
     refetchInterval: 5000, // Poll every 5 seconds for "real-time" feel
   });
+
+  const { data: dbStats, isLoading: isLoadingStats } = useQuery({
+    queryKey: [api.settings.getDbStats.path],
+    queryFn: async () => {
+      const res = await fetch(api.settings.getDbStats.path);
+      if (!res.ok) throw new Error("Failed to fetch stats");
+      return res.json();
+    },
+  });
+
+  const handleExport = () => {
+    window.open(api.settings.exportCsv.path, "_blank");
+    toast({
+      title: "Export Started",
+      description: "Your CSV file is being downloaded.",
+    });
+  };
 
   const testEmailMutation = useMutation({
     mutationFn: async () => {
@@ -143,6 +160,41 @@ export default function SettingsPage() {
         </Card>
 
         <div className="space-y-6">
+          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <HardDrive className="w-5 h-5 text-primary" />
+                Database Stats
+              </CardTitle>
+              <CardDescription>System data usage and storage details.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 rounded-xl border border-white/5 bg-white/5">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Keywords</p>
+                  <p className="text-2xl font-bold text-white">
+                    {isLoadingStats ? <Loader2 className="w-4 h-4 animate-spin" /> : dbStats?.totalKeywords}
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl border border-white/5 bg-white/5">
+                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">History Rows</p>
+                  <p className="text-2xl font-bold text-white">
+                    {isLoadingStats ? <Loader2 className="w-4 h-4 animate-spin" /> : dbStats?.totalRankHistory}
+                  </p>
+                </div>
+              </div>
+              
+              <Button 
+                variant="outline" 
+                className="w-full border-white/10 hover:bg-white/5"
+                onClick={handleExport}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export Data to CSV
+              </Button>
+            </CardContent>
+          </Card>
+
           <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
             <CardHeader>
               <CardTitle className="text-lg">System Status</CardTitle>
