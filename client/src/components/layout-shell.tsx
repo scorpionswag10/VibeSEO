@@ -32,11 +32,11 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       {/* Sidebar Desktop */}
       <aside className="hidden lg:flex flex-col w-72 border-r border-border bg-card/30 backdrop-blur-sm fixed h-full z-30">
         <div className="p-6">
-          <div className="flex items-center gap-2 mb-8">
+            <div className="flex items-center gap-2 mb-8">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/20">
               <Globe className="w-5 h-5 text-white" />
             </div>
-            <span className="font-display font-bold text-xl tracking-tight text-white">VibeSEO</span>
+            <span className="font-display font-bold text-xl tracking-tight text-white">VibeSEO Main</span>
           </div>
 
           <div className="space-y-1">
