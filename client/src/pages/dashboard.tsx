@@ -24,12 +24,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Switch } from "@/components/ui/switch";
+import { Globe2 } from "lucide-react";
 
 export default function Dashboard() {
   const { data: projects, isLoading } = useProjects();
   const { mutate: createProject, isPending: isCreating } = useCreateProject();
   const [open, setOpen] = useState(false);
   const [engineCompare, setEngineCompare] = useState(false);
+  const [showGlobalPulse, setShowGlobalPulse] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -161,6 +163,15 @@ export default function Dashboard() {
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Projects</CardTitle>
             <div className="flex items-center gap-2">
+              <Label htmlFor="global-pulse" className="text-[10px] text-muted-foreground uppercase">Global Pulse</Label>
+              <Switch 
+                id="global-pulse" 
+                checked={showGlobalPulse} 
+                onCheckedChange={setShowGlobalPulse}
+                className="scale-75"
+              />
+            </div>
+            <div className="flex items-center gap-2">
               <Label htmlFor="engine-compare" className="text-[10px] text-muted-foreground uppercase">Google vs Bing</Label>
               <Switch 
                 id="engine-compare" 
@@ -241,6 +252,19 @@ export default function Dashboard() {
                       <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground animate-in fade-in slide-in-from-left-2">
                         <Layers className="w-3.5 h-3.5 text-blue-400" />
                         <span>Bing: {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.bingRank || "--"}</span>
+                      </div>
+                    )}
+                    {showGlobalPulse && (
+                      <div className="flex items-center gap-3 animate-in fade-in slide-in-from-top-2 border-l border-white/10 pl-4 ml-2">
+                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                          <span className="font-bold text-white">🇺🇸</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.us || "--"}
+                        </div>
+                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                          <span className="font-bold text-white">🇬🇧</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.uk || "--"}
+                        </div>
+                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                          <span className="font-bold text-white">🇨🇦</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.ca || "--"}
+                        </div>
                       </div>
                     )}
                   </div>

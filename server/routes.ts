@@ -340,6 +340,7 @@ export async function registerRoutes(
 
   // Helper: Check Keyword Rank (Mock vs Real)
   async function checkKeywordRank(keywordId: number, term: string) {
+    let googleRanks = { us: 0, uk: 0, ca: 0 };
     let ranks = { google: 0, bing: 0, ddg: 0 };
     let serpData: any = { google: [], bing: [] };
 
@@ -347,8 +348,14 @@ export async function registerRoutes(
       // actual implementation...
     } else {
       // Mock Data
+      googleRanks = {
+        us: Math.floor(Math.random() * 50) + 1,
+        uk: Math.floor(Math.random() * 50) + 1,
+        ca: Math.floor(Math.random() * 50) + 1,
+      };
+
       ranks = {
-        google: Math.floor(Math.random() * 50) + 1,
+        google: googleRanks.us, // Default to US for main rank
         bing: Math.floor(Math.random() * 50) + 1,
         ddg: Math.floor(Math.random() * 50) + 1,
       };
@@ -375,9 +382,10 @@ export async function registerRoutes(
       bingRank: ranks.bing,
       ddgRank: ranks.ddg,
       serpData,
+      googleRanks, // New global pulse data
     });
 
-    await storage.addActivityLog({ message: `Updated ranking for keyword: "${term}"` });
+    await storage.addActivityLog({ message: `Updated global rankings for: "${term}" (US, UK, CA)` });
 
     // Check for alerts (Top 3)
     if (ranks.google <= 3) {
