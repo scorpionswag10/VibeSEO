@@ -186,6 +186,28 @@ export async function registerRoutes(
     res.json(researchData);
   });
 
+  // Sync All Keywords Now
+  app.post("/api/keywords/sync", async (req, res) => {
+    try {
+      log("Manual sync triggered");
+      const keywords = await storage.getAllKeywords();
+      
+      // Run sync in background so response is fast
+      (async () => {
+        for (const kw of keywords) {
+          await checkKeywordRank(kw.id, kw.term);
+          await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        log("Manual sync completed");
+      })().catch(err => console.error("Manual sync failed:", err));
+
+      res.json({ message: "Sync started in background", count: keywords.length });
+    } catch (err) {
+      console.error("Manual sync error:", err);
+      res.status(500).json({ message: "Failed to start sync" });
+    }
+  });
+
   // --- Background Tasks ---
 
   // Schedule Cron Job: Every day at 2:00 AM

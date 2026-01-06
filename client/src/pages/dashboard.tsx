@@ -1,6 +1,6 @@
 import { useProjects, useCreateProject } from "@/hooks/use-projects";
 import { Link } from "wouter";
-import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users } from "lucide-react";
+import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
@@ -20,11 +20,37 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { insertProjectSchema, type InsertProject } from "@shared/schema";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Dashboard() {
   const { data: projects, isLoading } = useProjects();
   const { mutate: createProject, isPending: isCreating } = useCreateProject();
   const [open, setOpen] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const { mutate: syncNow, isPending: isSyncing } = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/keywords/sync");
+    },
+    onSuccess: () => {
+      toast({
+        title: "Sync Started",
+        description: "Keyword rankings are being updated in the background.",
+      });
+      // Invalidate projects to eventually show updated lastCheck/ranks
+      queryClient.invalidateQueries({ queryKey: ["/api/projects"] });
+    },
+    onError: () => {
+      toast({
+        title: "Sync Failed",
+        description: "Could not start keyword synchronization.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const form = useForm<InsertProject>({
     resolver: zodResolver(insertProjectSchema),
@@ -61,59 +87,71 @@ export default function Dashboard() {
           <p className="text-muted-foreground">Overview of your tracked projects and performance.</p>
         </div>
         
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Project
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] border-white/10 bg-card/95 backdrop-blur-xl">
-            <DialogHeader>
-              <DialogTitle>Add New Project</DialogTitle>
-              <DialogDescription>
-                Track a new website's SEO performance.
-              </DialogDescription>
-            </DialogHeader>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label>Project Name</Label>
-                      <FormControl>
-                        <Input placeholder="My Awesome Blog" {...field} className="bg-background/50 border-white/10" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="url"
-                  render={({ field }) => (
-                    <FormItem>
-                      <Label>Website URL</Label>
-                      <FormControl>
-                        <Input placeholder="https://example.com" {...field} className="bg-background/50 border-white/10" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <DialogFooter className="pt-4">
-                  <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-                  <Button type="submit" disabled={isCreating} className="bg-primary text-white">
-                    {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                    Create Project
-                  </Button>
-                </DialogFooter>
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <Button 
+            variant="outline" 
+            onClick={() => syncNow()} 
+            disabled={isSyncing}
+            className="border-white/10 bg-white/5 hover:bg-white/10 text-white transition-all"
+          >
+            <RefreshCw className={cn("w-4 h-4 mr-2", isSyncing && "animate-spin")} />
+            Sync Now
+          </Button>
+
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Project
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] border-white/10 bg-card/95 backdrop-blur-xl">
+              <DialogHeader>
+                <DialogTitle>Add New Project</DialogTitle>
+                <DialogDescription>
+                  Track a new website's SEO performance.
+                </DialogDescription>
+              </DialogHeader>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <Label>Project Name</Label>
+                        <FormControl>
+                          <Input placeholder="My Awesome Blog" {...field} className="bg-background/50 border-white/10" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="url"
+                    render={({ field }) => (
+                      <FormItem>
+                        <Label>Website URL</Label>
+                        <FormControl>
+                          <Input placeholder="https://example.com" {...field} className="bg-background/50 border-white/10" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <DialogFooter className="pt-4">
+                    <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+                    <Button type="submit" disabled={isCreating} className="bg-primary text-white">
+                      {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                      Create Project
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
