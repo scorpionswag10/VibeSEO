@@ -20,6 +20,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
 
   const navItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
+    { name: "Global Pulse", href: "/dashboard/global-pulse", icon: Globe },
     { name: "Competitor Research", href: "/competitor-research", icon: Search },
     { name: "Content Ideas", href: "/content-ideas", icon: Lightbulb },
     { name: "Settings", href: "/settings", icon: SettingsIcon },

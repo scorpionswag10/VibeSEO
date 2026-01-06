@@ -1,6 +1,6 @@
 import { useProjects, useCreateProject } from "@/hooks/use-projects";
 import { Link } from "wouter";
-import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users, RefreshCw } from "lucide-react";
+import { Plus, Globe, ArrowRight, Loader2, TrendingUp, Users, RefreshCw, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {

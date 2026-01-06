@@ -9,6 +9,7 @@ import ProjectDetails from "@/pages/project-details";
 import SettingsPage from "@/pages/settings";
 import CompetitorResearch from "@/pages/competitor-research";
 import ContentIdeas from "@/pages/content-ideas";
+import GlobalPulse from "@/pages/global-pulse";
 import { LayoutShell } from "@/components/layout-shell";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
     <LayoutShell>
       <Switch>
         <Route path="/" component={Dashboard} />
+        <Route path="/dashboard/global-pulse" component={GlobalPulse} />
         <Route path="/projects/:id" component={ProjectDetails} />
         <Route path="/competitor-research" component={CompetitorResearch} />
         <Route path="/content-ideas" component={ContentIdeas} />

@@ -340,18 +340,21 @@ export async function registerRoutes(
 
   // Helper: Check Keyword Rank (Mock vs Real)
   async function checkKeywordRank(keywordId: number, term: string) {
-    let googleRanks = { us: 0, uk: 0, ca: 0 };
+    let googleRanks = { us: 0, uk: 0, ca: 0, au: 0 };
     let ranks = { google: 0, bing: 0, ddg: 0 };
     let serpData: any = { google: [], bing: [] };
 
     if (process.env.DATAFORSEO_AUTH && !MOCK_RANKINGS) {
       // actual implementation...
+      // Integration note: Passing location_code based on country
+      // const countryToLocationCode = { 'US': 2840, 'UK': 2826, 'CA': 2124, 'AU': 2036 };
     } else {
       // Mock Data
       googleRanks = {
         us: Math.floor(Math.random() * 50) + 1,
         uk: Math.floor(Math.random() * 50) + 1,
         ca: Math.floor(Math.random() * 50) + 1,
+        au: Math.floor(Math.random() * 50) + 1,
       };
 
       ranks = {

@@ -20,6 +20,7 @@ export const keywords = pgTable("keywords", {
   projectId: integer("project_id").notNull(),
   term: text("term").notNull(),
   location: text("location").default("United States"),
+  countryCode: text("country_code").default("US"),
   lastCheck: timestamp("last_check"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -31,6 +32,7 @@ export const rankHistory = pgTable("rank_history", {
   googleRank: integer("google_rank"),
   bingRank: integer("bing_rank"),
   ddgRank: integer("ddg_rank"),
+  countryCode: text("country_code").default("US"),
   serpData: jsonb("serp_data").$type<{
     google: { position: number; url: string; title: string }[];
     bing: { position: number; url: string; title: string }[];
@@ -39,6 +41,7 @@ export const rankHistory = pgTable("rank_history", {
     us: number;
     uk: number;
     ca: number;
+    au: number;
   }>(),
   checkedAt: timestamp("checked_at").defaultNow().notNull(),
 });
