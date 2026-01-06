@@ -6,7 +6,8 @@ import {
   Search,
   Bell,
   Menu,
-  X
+  X,
+  Lightbulb
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -20,6 +21,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
   const navItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
     { name: "Competitor Research", href: "/competitor-research", icon: Search },
+    { name: "Content Ideas", href: "/content-ideas", icon: Lightbulb },
     { name: "Settings", href: "/settings", icon: SettingsIcon },
   ];
 

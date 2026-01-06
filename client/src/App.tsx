@@ -8,6 +8,7 @@ import Dashboard from "@/pages/dashboard";
 import ProjectDetails from "@/pages/project-details";
 import SettingsPage from "@/pages/settings";
 import CompetitorResearch from "@/pages/competitor-research";
+import ContentIdeas from "@/pages/content-ideas";
 import { LayoutShell } from "@/components/layout-shell";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
         <Route path="/" component={Dashboard} />
         <Route path="/projects/:id" component={ProjectDetails} />
         <Route path="/competitor-research" component={CompetitorResearch} />
+        <Route path="/content-ideas" component={ContentIdeas} />
         <Route path="/settings" component={SettingsPage} />
         <Route component={NotFound} />
       </Switch>
