@@ -1,19 +1,4 @@
-import { useSettings, useUpdateSettings, useIntegrationsStatus } from "@/hooks/use-settings";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertSettingsSchema, type InsertSettings } from "@shared/schema";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, CheckCircle2, XCircle, Mail, Database, Send, ListTodo, Clock, HardDrive, Download } from "lucide-react";
-import { useEffect } from "react";
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { api } from "@shared/routes";
-import { format } from "date-fns";
+import { normalizeUrl } from "@/lib/normalize";
 
 export default function SettingsPage() {
   const { data: settings, isLoading } = useSettings();
@@ -87,7 +72,11 @@ export default function SettingsPage() {
   }, [settings, form]);
 
   const onSubmit = (data: Partial<InsertSettings>) => {
-    updateSettings(data);
+    const normalizedData = {
+      ...data,
+      notificationEmail: data.notificationEmail ? data.notificationEmail.toLowerCase().trim() : undefined
+    };
+    updateSettings(normalizedData);
   };
 
   if (isLoading) {

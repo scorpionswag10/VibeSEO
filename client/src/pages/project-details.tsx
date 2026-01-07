@@ -1,60 +1,4 @@
-import { useProject, useDeleteProject } from "@/hooks/use-projects";
-import { useKeywords, useCreateKeyword, useDeleteKeyword } from "@/hooks/use-keywords";
-import { useCompetitors, useCreateCompetitor } from "@/hooks/use-competitors";
-import { useLocation, useRoute } from "wouter";
-import { 
-  ArrowLeft, 
-  Trash2, 
-  Loader2, 
-  Plus, 
-  Search, 
-  TrendingUp, 
-  MoreHorizontal,
-  ExternalLink,
-  ShieldAlert,
-  LineChart as LineChartIcon,
-  FileText,
-  LayoutList
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { insertKeywordSchema, insertCompetitorSchema, type InsertKeyword, type InsertCompetitor } from "@shared/schema";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { KeywordRankChart } from "@/components/keyword-rank-chart";
-import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
+import { normalizeUrl } from "@/lib/normalize";
 
 export default function ProjectDetails() {
   const [match, params] = useRoute("/projects/:id");
@@ -202,7 +146,11 @@ function KeywordsTab({ projectId }: { projectId: number }) {
   });
 
   const onSubmit = (data: InsertKeyword) => {
-    createKeyword(data, {
+    const normalizedData = {
+      ...data,
+      term: data.term.toLowerCase().trim()
+    };
+    createKeyword(normalizedData, {
       onSuccess: () => {
         setOpen(false);
         form.reset({ projectId, term: "", location: "United States" });
@@ -394,7 +342,11 @@ function CompetitorsTab({ projectId }: { projectId: number }) {
   });
 
   const onSubmit = (data: InsertCompetitor) => {
-    createCompetitor(data, {
+    const normalizedData = {
+      ...data,
+      domain: normalizeUrl(data.domain)
+    };
+    createCompetitor(normalizedData, {
       onSuccess: () => {
         setOpen(false);
         form.reset({ projectId, domain: "" });

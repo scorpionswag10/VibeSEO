@@ -26,6 +26,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Switch } from "@/components/ui/switch";
 import { Globe2 } from "lucide-react";
 
+import { normalizeUrl } from "@/lib/normalize";
+
 export default function Dashboard() {
   const { data: projects, isLoading } = useProjects();
   const { mutate: createProject, isPending: isCreating } = useCreateProject();
@@ -65,7 +67,11 @@ export default function Dashboard() {
   });
 
   const onSubmit = (data: InsertProject) => {
-    createProject(data, {
+    const normalizedData = {
+      ...data,
+      url: normalizeUrl(data.url)
+    };
+    createProject(normalizedData, {
       onSuccess: () => {
         setOpen(false);
         form.reset();

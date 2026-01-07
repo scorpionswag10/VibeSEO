@@ -1,0 +1,20 @@
+import { Card, CardContent } from "@/components/ui/card";
+
+export default function PrivacyPage() {
+  return (
+    <div className="space-y-8 max-w-4xl mx-auto py-12">
+      <h1 className="text-4xl font-display font-bold text-white mb-4">Privacy Policy</h1>
+      <Card className="bg-card border-white/5 shadow-xl">
+        <CardContent className="pt-6 prose prose-invert">
+          <p>Effective Date: January 7, 2026</p>
+          <h3>1. Information We Collect</h3>
+          <p>We collect search engine ranking data and website URLs you provide for tracking purposes.</p>
+          <h3>2. How We Use Information</h3>
+          <p>Information is used strictly to provide SEO tracking services and analytics to you.</p>
+          <h3>3. Data Protection</h3>
+          <p>We implement industry-standard security measures to protect your data.</p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

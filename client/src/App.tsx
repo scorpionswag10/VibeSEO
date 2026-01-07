@@ -10,6 +10,9 @@ import SettingsPage from "@/pages/settings";
 import CompetitorResearch from "@/pages/competitor-research";
 import ContentIdeas from "@/pages/content-ideas";
 import GlobalPulse from "@/pages/global-pulse";
+import AboutPage from "@/pages/about";
+import PrivacyPage from "@/pages/privacy";
+import TermsPage from "@/pages/terms";
 import { LayoutShell } from "@/components/layout-shell";
 
 function Router() {
@@ -22,6 +25,9 @@ function Router() {
         <Route path="/competitor-research" component={CompetitorResearch} />
         <Route path="/content-ideas" component={ContentIdeas} />
         <Route path="/settings" component={SettingsPage} />
+        <Route path="/about" component={AboutPage} />
+        <Route path="/privacy" component={PrivacyPage} />
+        <Route path="/terms" component={TermsPage} />
         <Route component={NotFound} />
       </Switch>
     </LayoutShell>
