@@ -102,7 +102,7 @@ export default function Dashboard() {
             variant="outline" 
             onClick={() => syncNow()} 
             disabled={isSyncing}
-            className="border-white/10 bg-white/5 hover:bg-white/10 text-white transition-all"
+            className="border-[#DFE3EE] dark:border-white/10 bg-white dark:bg-white/5 hover:bg-muted dark:hover:bg-white/10 text-[#050505] dark:text-white transition-all"
           >
             <RefreshCw className={cn("w-4 h-4 mr-2", isSyncing && "animate-spin")} />
             Sync Now
@@ -110,7 +110,7 @@ export default function Dashboard() {
 
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
+              <Button className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]">
                 <Plus className="w-4 h-4 mr-2" />
                 Add Project
               </Button>
@@ -151,8 +151,8 @@ export default function Dashboard() {
                     )}
                   />
                   <DialogFooter className="pt-4">
-                    <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
-                    <Button type="submit" disabled={isCreating} className="bg-primary text-white">
+                    <Button type="button" variant="outline" onClick={() => setOpen(false)} className="border-[#DFE3EE] text-[#050505] hover:bg-muted transition-all">Cancel</Button>
+                    <Button type="submit" disabled={isCreating} className="bg-[#1877F2] text-white hover:bg-[#1877F2]/90 transition-all">
                       {isCreating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
                       Create Project
                     </Button>
@@ -224,52 +224,52 @@ export default function Dashboard() {
           Active Projects
         </h2>
         
-        {projects?.length === 0 ? (
-          <div className="border border-dashed border-white/10 rounded-2xl p-12 text-center bg-card/20">
-            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-              <Globe className="w-8 h-8 text-primary" />
+            {projects?.length === 0 ? (
+          <div className="border border-dashed border-[#DFE3EE] dark:border-white/10 rounded-2xl p-12 text-center bg-white dark:bg-card/20">
+            <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 flex items-center justify-center mx-auto mb-4">
+              <Globe className="w-8 h-8 text-[#1877F2]" />
             </div>
-            <h3 className="text-lg font-medium text-white mb-2">No projects yet</h3>
-            <p className="text-muted-foreground mb-6 max-w-sm mx-auto">Start tracking your SEO performance by adding your first project.</p>
-            <Button onClick={() => setOpen(true)} className="bg-primary hover:bg-primary/90">Add First Project</Button>
+            <h3 className="text-lg font-bold text-[#050505] dark:text-white mb-2">No projects yet</h3>
+            <p className="text-secondary dark:text-muted-foreground mb-6 max-w-sm mx-auto">Start tracking your SEO performance by adding your first project.</p>
+            <Button onClick={() => setOpen(true)} className="bg-[#1877F2] hover:bg-[#1877F2]/90 text-white">Add First Project</Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects?.map((project) => (
               <Link key={project.id} href={`/projects/${project.id}`}>
-                <div className="group relative bg-card hover:bg-card/80 border border-white/5 hover:border-primary/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer overflow-hidden">
+                <div className="group relative bg-white dark:bg-card hover:bg-white/90 dark:hover:bg-card/80 border border-[#DFE3EE] dark:border-white/5 hover:border-[#1877F2]/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#1877F2]/10 cursor-pointer overflow-hidden">
                   <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-                    <ArrowRight className="w-5 h-5 text-primary" />
+                    <ArrowRight className="w-5 h-5 text-[#1877F2]" />
                   </div>
                   
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center mb-4 border border-white/5 group-hover:scale-110 transition-transform duration-300">
-                    <span className="font-bold text-lg text-white">{project.name.charAt(0)}</span>
+                  <div className="w-12 h-12 rounded-xl bg-[#1877F2]/10 flex items-center justify-center mb-4 border border-[#DFE3EE] dark:border-white/5 group-hover:scale-110 transition-transform duration-300">
+                    <span className="font-bold text-lg text-[#1877F2] dark:text-white">{project.name.charAt(0)}</span>
                   </div>
                   
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">{project.name}</h3>
-                  <p className="text-sm text-muted-foreground truncate mb-6">{project.url}</p>
+                  <h3 className="text-lg font-bold text-[#050505] dark:text-white mb-1 group-hover:text-[#1877F2] transition-colors">{project.name}</h3>
+                  <p className="text-sm text-secondary dark:text-muted-foreground truncate mb-6">{project.url}</p>
                   
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                    <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                  <div className="flex items-center gap-4 pt-4 border-t border-[#DFE3EE] dark:border-white/5">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-secondary dark:text-muted-foreground">
                       <TrendingUp className="w-3.5 h-3.5" />
                       <span>Google: {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRank || "--"}</span>
                     </div>
                     {engineCompare && (
-                      <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground animate-in fade-in slide-in-from-left-2">
-                        <Layers className="w-3.5 h-3.5 text-blue-400" />
+                      <div className="flex items-center gap-1.5 text-xs font-bold text-secondary dark:text-muted-foreground animate-in fade-in slide-in-from-left-2">
+                        <Layers className="w-3.5 h-3.5 text-[#1877F2] dark:text-blue-400" />
                         <span>Bing: {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.bingRank || "--"}</span>
                       </div>
                     )}
                     {showGlobalPulse && (
-                      <div className="flex items-center gap-3 animate-in fade-in slide-in-from-top-2 border-l border-white/10 pl-4 ml-2">
-                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                          <span className="font-bold text-white">🇺🇸</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.us || "--"}
+                      <div className="flex items-center gap-3 animate-in fade-in slide-in-from-top-2 border-l border-[#DFE3EE] dark:border-white/10 pl-4 ml-2">
+                        <div className="flex items-center gap-1 text-[10px] text-secondary dark:text-muted-foreground">
+                          <span className="font-bold text-[#050505] dark:text-white">🇺🇸</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.us || "--"}
                         </div>
-                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                          <span className="font-bold text-white">🇬🇧</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.uk || "--"}
+                        <div className="flex items-center gap-1 text-[10px] text-secondary dark:text-muted-foreground">
+                          <span className="font-bold text-[#050505] dark:text-white">🇬🇧</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.uk || "--"}
                         </div>
-                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                          <span className="font-bold text-white">🇨🇦</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.ca || "--"}
+                        <div className="flex items-center gap-1 text-[10px] text-secondary dark:text-muted-foreground">
+                          <span className="font-bold text-[#050505] dark:text-white">🇨🇦</span> {project.keywords?.[0]?.history?.[project.keywords?.[0]?.history?.length - 1]?.googleRanks?.ca || "--"}
                         </div>
                       </div>
                     )}

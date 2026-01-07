@@ -23,11 +23,11 @@ export default function IndexShield() {
   return (
     <div className="space-y-8 max-w-4xl mx-auto py-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-white mb-1">Index Shield</h1>
-        <p className="text-muted-foreground">Monitor Google Indexing status for your critical URLs.</p>
+        <h1 className="text-3xl font-sans font-bold text-[#050505] dark:text-white mb-1">Index Shield</h1>
+        <p className="text-secondary dark:text-muted-foreground">Monitor Google Indexing status for your critical URLs.</p>
       </div>
 
-      <Card className="bg-card/40 backdrop-blur-sm border-white/5 shadow-xl">
+      <Card className="bg-white dark:bg-card/40 backdrop-blur-sm border-[#DFE3EE] dark:border-white/5 shadow-xl">
         <CardHeader>
           <CardTitle>Check Indexing Status</CardTitle>
           <CardDescription>We'll query Google directly via DataForSEO to verify if your page is indexed.</CardDescription>

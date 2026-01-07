@@ -131,7 +131,7 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-4 lg:hidden">
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 -ml-2 text-white/80 hover:text-white"
+                className="p-2 -ml-2 text-white hover:text-white"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -152,12 +152,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-4">
               <button 
                 onClick={toggleTheme}
-                className="p-2 text-white/80 hover:text-white transition-colors"
+                className="p-2 text-white hover:text-white transition-colors"
                 title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <button className="relative p-2 text-white/80 hover:text-white transition-colors">
+              <button className="relative p-2 text-white hover:text-white transition-colors">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-white border-2 border-[#1877F2]"></span>
               </button>

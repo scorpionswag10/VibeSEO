@@ -22,8 +22,8 @@
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 10% 90%;
-    --input: 220 10% 90%;
+    --border: 214 24% 91%; /* #DFE3EE */
+    --input: 214 24% 91%;
     --ring: 214 89% 52%;
     --radius: 0.5rem;
   }
