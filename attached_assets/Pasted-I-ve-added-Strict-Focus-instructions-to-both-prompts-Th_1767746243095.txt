@@ -1,0 +1,24 @@
+I’ve added "Strict Focus" instructions to both prompts. These tell the Agent to act like a precision surgeon—touching only the specific code needed for our new features and leaving your working core infrastructure alone.
+📦 Mega-Prompt 1: The "Visual & Legal" Overhaul
+Focus: Branding, Theme, Normalization, and Legal.
+> "Perform a UI and Branding overhaul for VibeSEO. Strict Instruction: ONLY modify files related to styling, layout, and new legal components. Do not touch backend logic, database configurations, or existing API routes.
+>  * Theme & Colors: Apply a light-mode primary theme. Use #2D9EC4 (Blue) for primary actions and #A1C976 (Green) for success states. Implement a Dark/Light Mode toggle in the header.
+>  * Branding: Update the 'VibeSEO' logo to a gradient (#2D9EC4 to #A1C976) and add a 'BETA' badge.
+>  * Input Normalization: Create a utility normalizeUrl() to strip 'http/s', 'www', and trailing slashes, forcing lowercase. Apply this to all frontend input forms before submission.
+>  * Legal Pages: Build /about, /privacy, and /terms with professional SEO SaaS text and link them in a new Footer component.
+>  * Scope Lock: Do not attempt to optimize or refactor existing working code. Focus strictly on these UI and utility additions."
+> 
+🚀 Mega-Prompt 2: The "Intelligence & Monetization" Engine
+Focus: Multi-Engine Data, Data Centers, and Subscription Gating.
+> "Upgrade core SEO intelligence and monetization logic. Strict Instruction: Focus only on the 'Add Keyword' flow, the Dashboard table, and the new Pricing logic. Do not modify the underlying database schema or server environment.
+>  * Multi-Engine Tracking: Update logic to support Google, Bing, and DuckDuckGo. Add brand icons for each in the dashboard.
+>  * Location/Data Centers: Add a 'Tracking Location' dropdown to the keyword modal with the top 20 global hubs using DataForSEO codes.
+>  * Pricing & Gating: Create a /pricing page ($12, $39, $99 tiers). Implement 'feature gates' so Bing/DDG and 'On-Demand Sync' require the Agency ($39) tier.
+>  * Upsell Flow: Build a 'Upgrade Required' modal for locked features that links to a Stripe placeholder.
+>  * Index Shield: Create a new page/tab to check Google Indexing status via DataForSEO.
+>  * Scope Lock: If a feature requires a new database column, only add the specific column needed—do not rewrite the whole table."
+> 
+💡 Why this is your "Efficiency Shield"
+By adding the "Strict Instruction" at the top and the "Scope Lock" at the bottom, you are creating a "fence" around the Agent. This is the best way to ensure it doesn't spend your limited compute credits on things that aren't broken.
+You are all set! Save these two blocks of text. When your Replit timer hits 0:00, you have a surgical plan ready to go.
+Is there anything else I can help you prep while you wait for the reset?
