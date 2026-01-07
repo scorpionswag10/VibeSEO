@@ -7,10 +7,10 @@ export function normalizeUrl(url: string): string {
   
   let normalized = url.toLowerCase().trim();
   
-  // Remove protocol
+  // Remove protocol (http:// or https://)
   normalized = normalized.replace(/^(https?:\/\/)/, "");
   
-  // Remove www
+  // Remove www.
   normalized = normalized.replace(/^www\./, "");
   
   // Remove trailing slashes
