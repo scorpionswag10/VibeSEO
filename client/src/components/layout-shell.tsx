@@ -60,12 +60,12 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
         <aside className="hidden lg:flex flex-col w-72 border-r border-border bg-card/30 backdrop-blur-sm fixed h-full z-30">
           <div className="p-6">
               <div className="flex items-center gap-2 mb-8">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2D9EC4] to-[#A1C976] flex items-center justify-center shadow-lg shadow-primary/20">
+              <div className="w-8 h-8 rounded-lg bg-[#1877F2] flex items-center justify-center shadow-lg shadow-[#1877F2]/20">
                 <Globe className="w-5 h-5 text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-bold text-xl tracking-tight bg-gradient-to-r from-[#2D9EC4] to-[#A1C976] bg-clip-text text-transparent">VibeSEO</span>
-                <span className="text-[10px] font-bold text-[#A1C976] tracking-widest leading-none">BETA</span>
+                <span className="font-sans font-bold text-xl tracking-tight text-[#1877F2] dark:text-white">VibeSEO</span>
+                <span className="text-[10px] font-bold text-[#1877F2] dark:text-white tracking-widest leading-none">BETA</span>
               </div>
             </div>
 
@@ -126,25 +126,25 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       {/* Main Content */}
       <main className="flex-1 lg:ml-72 flex flex-col min-h-screen">
         {/* Header Mobile/Desktop */}
-        <header className="sticky top-0 z-20 border-b border-border/50 bg-background/80 backdrop-blur-md">
+        <header className="sticky top-0 z-20 border-b border-white/10 bg-[#1877F2] text-white">
           <div className="flex items-center justify-between px-6 py-4">
             <div className="flex items-center gap-4 lg:hidden">
               <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 -ml-2 text-muted-foreground hover:text-white"
+                className="p-2 -ml-2 text-white/80 hover:text-white"
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
-              <span className="font-display font-bold text-lg text-white">VibeSEO</span>
+              <span className="font-sans font-bold text-lg text-white">VibeSEO</span>
             </div>
 
             <div className="hidden lg:flex items-center w-full max-w-xl">
               <div className="relative w-full group">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/70 group-focus-within:text-white transition-colors" />
                 <input 
                   type="text" 
                   placeholder="Search projects, keywords..." 
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/5 border border-white/5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all placeholder:text-muted-foreground/50"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/10 border border-white/20 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-white/50 transition-all placeholder:text-white/50"
                 />
               </div>
             </div>
@@ -152,14 +152,14 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
             <div className="flex items-center gap-4">
               <button 
                 onClick={toggleTheme}
-                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                className="p-2 text-white/80 hover:text-white transition-colors"
                 title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <button className="relative p-2 text-muted-foreground hover:text-white transition-colors">
+              <button className="relative p-2 text-white/80 hover:text-white transition-colors">
                 <Bell className="w-5 h-5" />
-                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary border-2 border-background"></span>
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-white border-2 border-[#1877F2]"></span>
               </button>
             </div>
           </div>

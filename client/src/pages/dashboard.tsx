@@ -93,8 +93,8 @@ export default function Dashboard() {
     <>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-display font-bold text-white mb-1">Dashboard</h1>
-          <p className="text-muted-foreground">Overview of your tracked projects and performance.</p>
+          <h1 className="text-3xl font-sans font-bold text-foreground mb-1">Dashboard</h1>
+          <p className="text-secondary">Overview of your tracked projects and performance.</p>
         </div>
         
         <div className="flex gap-2">
@@ -165,11 +165,11 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="bg-gradient-to-br from-card to-card/50 border-white/5 shadow-xl">
+        <Card className="bg-card border-border shadow-sm dark:shadow-none">
           <CardHeader className="pb-2 flex flex-row items-center justify-between">
-            <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Total Projects</CardTitle>
+            <CardTitle className="text-sm font-bold text-secondary uppercase tracking-wider">Total Projects</CardTitle>
             <div className="flex items-center gap-2">
-              <Label htmlFor="global-pulse" className="text-[10px] text-muted-foreground uppercase">Global Pulse</Label>
+              <Label htmlFor="global-pulse" className="text-[10px] text-secondary uppercase">Global Pulse</Label>
               <Switch 
                 id="global-pulse" 
                 checked={showGlobalPulse} 
@@ -178,7 +178,7 @@ export default function Dashboard() {
               />
             </div>
             <div className="flex items-center gap-2">
-              <Label htmlFor="engine-compare" className="text-[10px] text-muted-foreground uppercase">Google vs Bing</Label>
+              <Label htmlFor="engine-compare" className="text-[10px] text-secondary uppercase">Google vs Bing</Label>
               <Switch 
                 id="engine-compare" 
                 checked={engineCompare} 
@@ -189,30 +189,30 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-white">{totalProjects}</span>
-              <span className="text-sm text-primary font-medium">+1 this week</span>
+              <span className="text-4xl font-bold text-foreground">{totalProjects}</span>
+              <span className="text-sm text-primary font-bold">+1 this week</span>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-card to-card/50 border-white/5 shadow-xl">
+        <Card className="bg-card border-border shadow-sm dark:shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Keywords Tracked</CardTitle>
+            <CardTitle className="text-sm font-bold text-secondary uppercase tracking-wider">Keywords Tracked</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-white">--</span>
-              <span className="text-sm text-muted-foreground">across all projects</span>
+              <span className="text-4xl font-bold text-foreground">--</span>
+              <span className="text-sm text-secondary">across all projects</span>
             </div>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-card to-card/50 border-white/5 shadow-xl">
+        <Card className="bg-card border-border shadow-sm dark:shadow-none">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Avg. Position</CardTitle>
+            <CardTitle className="text-sm font-bold text-secondary uppercase tracking-wider">Avg. Position</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-bold text-white">--</span>
-              <span className="text-sm text-green-500 font-medium">▲ 2.4</span>
+              <span className="text-4xl font-bold text-foreground">--</span>
+              <span className="text-sm text-green-600 dark:text-green-500 font-bold">▲ 2.4</span>
             </div>
           </CardContent>
         </Card>
