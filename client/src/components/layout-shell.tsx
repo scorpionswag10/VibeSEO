@@ -9,7 +9,9 @@ import {
   X,
   Lightbulb,
   Sun,
-  Moon
+  Moon,
+  ShieldCheck,
+  Crown
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
@@ -44,6 +46,8 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
     { name: "Global Pulse", href: "/dashboard/global-pulse", icon: Globe },
     { name: "Competitor Research", href: "/competitor-research", icon: Search },
     { name: "Content Ideas", href: "/content-ideas", icon: Lightbulb },
+    { name: "Index Shield", href: "/index-shield", icon: ShieldCheck },
+    { name: "Pricing", href: "/pricing", icon: Crown },
     { name: "Settings", href: "/settings", icon: SettingsIcon },
   ];
 

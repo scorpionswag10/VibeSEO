@@ -20,6 +20,7 @@ export const keywords = pgTable("keywords", {
   projectId: integer("project_id").notNull(),
   term: text("term").notNull(),
   location: text("location").default("United States"),
+  locationCode: integer("location_code").default(2840), // Default to US
   countryCode: text("country_code").default("US"),
   lastCheck: timestamp("last_check"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -62,6 +63,7 @@ export const settings = pgTable("settings", {
   id: serial("id").primaryKey(),
   emailNotifications: boolean("email_notifications").default(true),
   notificationEmail: text("notification_email"),
+  subscriptionTier: text("subscription_tier").default("free"), // free, pro, agency
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
