@@ -98,7 +98,7 @@ export default function ProjectDetails() {
           <div>
             <div className="flex items-center gap-3">
               <h1 className="text-2xl font-display font-bold text-[#050505] dark:text-white">{project.name}</h1>
-              <Badge variant="outline" className="border-primary/20 bg-primary/10 text-primary text-xs font-normal">Active</Badge>
+              <Badge variant="outline" className="border-none bg-[#42B72A] text-white text-xs font-bold">Active</Badge>
             </div>
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-[#050505]/70 dark:text-muted-foreground text-sm hover:text-[#050505] dark:hover:text-white hover:underline flex items-center gap-1 mt-1">
               {project.url}
@@ -338,18 +338,32 @@ function KeywordsTab({ projectId }: { projectId: number }) {
           <div className="space-y-6">
             <Card className="border-border bg-white dark:bg-card/40 backdrop-blur-sm overflow-hidden">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2 text-[#050505] dark:text-white">
+                <CardTitle className="text-base font-bold flex items-center gap-2 text-[#050505] dark:text-white">
                   <LineChartIcon className="w-4 h-4 text-primary" />
                   30-Day Ranking Trend: "{selectedKeyword.term}"
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="text-[#050505] dark:text-white">
                 <KeywordRankChart history={selectedKeyword.history || []} />
+                <div className="flex items-center gap-6 text-xs font-medium text-[#050505] dark:text-muted-foreground mt-6 justify-center">
+                  <div className="flex items-center gap-2">
+                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-[18px] h-[18px]" />
+                    <span>Google</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src="https://www.bing.com/favicon.ico" alt="Bing" className="w-[18px] h-[18px]" />
+                    <span>Bing</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <img src="https://duckduckgo.com/favicon.ico" alt="DuckDuckGo" className="w-[18px] h-[18px]" />
+                    <span>DuckDuckGo</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
             
             <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-6">
-              <h4 className="font-medium text-[#050505] dark:text-white mb-4 flex items-center gap-2">
+              <h4 className="text-base font-bold text-[#050505] dark:text-white mb-4 flex items-center gap-2">
                 <LayoutList className="w-4 h-4 text-primary" />
                 Google SERP Snapshot (Top 10)
               </h4>
@@ -367,7 +381,7 @@ function KeywordsTab({ projectId }: { projectId: number }) {
             </div>
 
             <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-6">
-              <h4 className="font-medium text-[#050505] dark:text-white mb-4 flex items-center gap-2">
+              <h4 className="text-base font-bold text-[#050505] dark:text-white mb-4 flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-primary" />
                 Insights
               </h4>
