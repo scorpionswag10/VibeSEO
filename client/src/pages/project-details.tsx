@@ -164,18 +164,18 @@ export default function ProjectDetails() {
             <CompetitorsTab projectId={projectId} />
           </TabsContent>
           <TabsContent value="settings" className="animate-in fade-in slide-in-from-left-4 duration-300">
-            <div className="bg-card border border-white/5 rounded-2xl p-8 max-w-2xl">
-              <h3 className="text-lg font-bold text-white mb-4">Project Settings</h3>
-              <p className="text-muted-foreground mb-6">Configuration options specific to {project.name}.</p>
+            <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-8 max-w-2xl">
+              <h3 className="text-lg font-bold text-[#050505] dark:text-white mb-4">Project Settings</h3>
+              <p className="text-[#050505]/70 dark:text-muted-foreground mb-6">Configuration options specific to {project.name}.</p>
               
               <div className="space-y-4">
-                 <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5">
+                 <div className="flex items-center justify-between p-4 rounded-xl bg-[#050505]/5 dark:bg-white/5 border border-[#050505]/5 dark:border-white/5">
                    <div>
-                     <p className="font-medium text-white">Daily Refresh</p>
-                     <p className="text-xs text-muted-foreground">Automatically check rankings every 24 hours</p>
+                     <p className="font-medium text-[#050505] dark:text-white">Daily Refresh</p>
+                     <p className="text-xs text-[#050505]/70 dark:text-muted-foreground">Automatically check rankings every 24 hours</p>
                    </div>
                    <div className="flex items-center gap-2">
-                     <span className="text-xs font-medium text-green-500 bg-green-500/10 px-2 py-1 rounded">Enabled</span>
+                     <span className="text-xs font-medium text-green-600 dark:text-green-500 bg-green-500/10 px-2 py-1 rounded">Enabled</span>
                    </div>
                  </div>
               </div>
