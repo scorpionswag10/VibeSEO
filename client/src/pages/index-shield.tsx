@@ -64,12 +64,12 @@ export default function IndexShield() {
 
           {result && (
             <div className={`mt-8 p-6 rounded-2xl border flex items-center gap-4 animate-in fade-in slide-in-from-top-4 ${result.indexed ? 'bg-green-500/10 border-green-500/50' : 'bg-red-500/10 border-red-500/50'}`}>
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${result.indexed ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500'}`}>
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${result.indexed ? 'bg-green-500/20 text-green-700 dark:text-green-500' : 'bg-red-500/20 text-red-500'}`}>
                 {result.indexed ? <ShieldCheck className="w-6 h-6" /> : <ShieldAlert className="w-6 h-6" />}
               </div>
               <div>
-                <h3 className="font-bold text-white text-lg">{result.indexed ? "URL is Indexed" : "URL Not Indexed"}</h3>
-                <p className="text-sm text-muted-foreground">Confirmed via Google Search. Last checked: {new Date(result.lastChecked).toLocaleString()}</p>
+                <h3 className="font-bold text-[#050505] dark:text-white text-lg">{result.indexed ? "URL is Indexed" : "URL Not Indexed"}</h3>
+                <p className="text-sm text-[#050505]/70 dark:text-muted-foreground">Confirmed via Google Search. Last checked: {new Date(result.lastChecked).toLocaleString()}</p>
               </div>
             </div>
           )}
