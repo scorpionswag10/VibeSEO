@@ -432,20 +432,20 @@ function CompetitorsTab({ projectId }: { projectId: number }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-           <h3 className="text-lg font-medium text-white">Competitor Analysis</h3>
-           <p className="text-sm text-muted-foreground">Monitor backlinks and metrics for competing domains.</p>
+           <h3 className="text-lg font-medium text-[#050505] dark:text-[#E4E6EB]">Competitor Analysis</h3>
+           <p className="text-sm text-[#050505]/70 dark:text-[#B0B3B8]">Monitor backlinks and metrics for competing domains.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="bg-primary hover:bg-primary/90">
+            <Button size="sm" className="bg-primary hover:bg-primary/90 text-white">
               <Plus className="w-4 h-4 mr-2" />
               Add Competitor
             </Button>
           </DialogTrigger>
-          <DialogContent className="bg-card border-white/10">
+          <DialogContent className="bg-white dark:bg-card border-[#050505]/10 dark:border-white/10">
             <DialogHeader>
-              <DialogTitle>Add Competitor</DialogTitle>
-              <DialogDescription>Enter a domain to analyze backlinks.</DialogDescription>
+              <DialogTitle className="text-[#050505] dark:text-[#E4E6EB]">Add Competitor</DialogTitle>
+              <DialogDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">Enter a domain to analyze backlinks.</DialogDescription>
             </DialogHeader>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
@@ -454,16 +454,16 @@ function CompetitorsTab({ projectId }: { projectId: number }) {
                   name="domain"
                   render={({ field }) => (
                     <FormItem>
-                      <Label>Domain URL</Label>
+                      <Label className="text-[#050505] dark:text-[#E4E6EB]">Domain URL</Label>
                       <FormControl>
-                        <Input placeholder="competitor.com" {...field} className="bg-background/50 border-white/10" />
+                        <Input placeholder="competitor.com" {...field} className="bg-background/50 border-[#050505]/10 dark:border-white/10 text-[#050505] dark:text-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <DialogFooter>
-                  <Button type="submit" disabled={isCreating} className="bg-primary">
+                  <Button type="submit" disabled={isCreating} className="bg-primary text-white">
                     {isCreating ? "Adding..." : "Add Competitor"}
                   </Button>
                 </DialogFooter>
@@ -475,43 +475,43 @@ function CompetitorsTab({ projectId }: { projectId: number }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {competitors?.length === 0 ? (
-           <div className="col-span-full border border-dashed border-white/10 rounded-2xl p-12 text-center">
-             <p className="text-muted-foreground">No competitors added yet.</p>
+           <div className="col-span-full border border-dashed border-[#050505]/10 dark:border-white/10 rounded-2xl p-12 text-center">
+             <p className="text-[#050505]/70 dark:text-[#B0B3B8]">No competitors added yet.</p>
            </div>
         ) : (
           competitors?.map((competitor) => (
-            <div key={competitor.id} className="bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/50 transition-colors group">
+            <div key={competitor.id} className="bg-white dark:bg-[#242526] border border-[#050505]/5 dark:border-white/10 rounded-2xl p-6 hover:border-primary/50 transition-colors group">
                <div className="flex items-start justify-between mb-4">
                  <div>
-                   <h4 className="font-bold text-white text-lg">{competitor.domain}</h4>
-                   <p className="text-xs text-muted-foreground">Competitor</p>
+                   <h4 className="font-bold text-[#050505] dark:text-[#E4E6EB] text-lg">{competitor.domain}</h4>
+                   <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8]">Competitor</p>
                  </div>
-                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary transition-colors">
+                 <div className="w-8 h-8 rounded-full bg-[#050505]/5 dark:bg-white/5 flex items-center justify-center group-hover:bg-primary/20 group-hover:text-primary transition-colors text-[#050505] dark:text-[#E4E6EB]">
                    <TrendingUp className="w-4 h-4" />
                  </div>
                </div>
                
                <div className="space-y-4">
-                 <div className="bg-background/50 rounded-lg p-3 border border-white/5">
-                   <p className="text-xs text-muted-foreground mb-1">Total Backlinks</p>
-                   <p className="text-2xl font-bold text-white">{competitor.backlinksCount || 0}</p>
+                 <div className="bg-[#050505]/5 dark:bg-[#18191A] rounded-lg p-3 border border-[#050505]/5 dark:border-white/10">
+                   <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8] mb-1">Total Backlinks</p>
+                   <p className="text-2xl font-bold text-[#050505] dark:text-[#E4E6EB]">{competitor.backlinksCount || 0}</p>
                  </div>
                  
                  <div>
-                   <p className="text-xs font-medium text-white mb-2 uppercase tracking-wider">Top Backlinks</p>
+                   <p className="text-xs font-medium text-[#050505] dark:text-[#E4E6EB] mb-2 uppercase tracking-wider">Top Backlinks</p>
                    {competitor.topBacklinks && (competitor.topBacklinks as string[]).length > 0 ? (
                      <ul className="space-y-2">
                        {(competitor.topBacklinks as string[]).slice(0, 3).map((link, idx) => (
-                         <li key={idx} className="flex items-center gap-2 text-xs text-muted-foreground truncate">
+                         <li key={idx} className="flex items-center gap-2 text-xs text-[#050505]/70 dark:text-[#B0B3B8] truncate">
                            <span className="w-1 h-1 rounded-full bg-primary flex-shrink-0"></span>
-                           <a href={link} target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline truncate">
+                           <a href={link} target="_blank" rel="noopener noreferrer" className="hover:text-[#050505] dark:hover:text-[#E4E6EB] hover:underline truncate">
                              {link}
                            </a>
                          </li>
                        ))}
                      </ul>
                    ) : (
-                     <p className="text-xs text-muted-foreground italic">No backlinks found yet.</p>
+                     <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8] italic">No backlinks found yet.</p>
                    )}
                  </div>
                </div>
