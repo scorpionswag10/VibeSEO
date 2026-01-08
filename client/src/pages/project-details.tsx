@@ -1,7 +1,9 @@
 import { normalizeUrl } from "@/lib/normalize";
 import { useRoute, useLocation } from "wouter";
 import { useState, useEffect } from "react";
-import { useProject, useDeleteProject, useKeywords, useCreateKeyword, useDeleteKeyword, useCompetitors, useCreateCompetitor } from "@/hooks/use-projects";
+import { useProject, useDeleteProject } from "@/hooks/use-projects";
+import { useKeywords, useCreateKeyword, useDeleteKeyword } from "@/hooks/use-keywords";
+import { useCompetitors, useCreateCompetitor } from "@/hooks/use-competitors";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
