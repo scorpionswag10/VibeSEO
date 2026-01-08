@@ -1,4 +1,20 @@
 import { normalizeUrl } from "@/lib/normalize";
+import { useSettings, useUpdateSettings, useIntegrationsStatus } from "@/hooks/use-settings";
+import { useToast } from "@/hooks/use-toast";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { api } from "@shared/routes";
+import { apiRequest } from "@/lib/queryClient";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertSettingsSchema, type InsertSettings } from "@shared/schema";
+import { useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormDescription, FormMessage } from "@/components/ui/form";
+import { Switch } from "@/components/ui/switch";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Loader2, HardDrive, Download, Database, CheckCircle2, XCircle, Mail, Send, ListTodo, Clock } from "lucide-react";
+import { format } from "date-fns";
 
 export default function SettingsPage() {
   const { data: settings, isLoading } = useSettings();

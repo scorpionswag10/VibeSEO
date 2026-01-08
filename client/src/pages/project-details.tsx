@@ -1,6 +1,62 @@
 import { normalizeUrl } from "@/lib/normalize";
+import { useRoute, useLocation } from "wouter";
+import { useState, useEffect } from "react";
+import { useProject, useDeleteProject, useKeywords, useCreateKeyword, useDeleteKeyword, useCompetitors, useCreateCompetitor } from "@/hooks/use-projects";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  ArrowLeft, 
+  ExternalLink, 
+  FileText, 
+  Trash2, 
+  Plus, 
+  LayoutList, 
+  ShieldAlert, 
+  TrendingUp,
+  Loader2,
+  LineChart as LineChartIcon
+} from "lucide-react";
+import { 
+  AlertDialog, 
+  AlertDialogAction, 
+  AlertDialogCancel, 
+  AlertDialogContent, 
+  AlertDialogDescription, 
+  AlertDialogFooter, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogTrigger 
+} from "@/components/ui/alert-dialog";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger,
+  DialogFooter
+} from "@/components/ui/dialog";
+import { 
+  Form, 
+  FormControl, 
+  FormField, 
+  FormItem, 
+  FormMessage 
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { insertKeywordSchema, type InsertKeyword, insertCompetitorSchema, type InsertCompetitor } from "@shared/schema";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import { KeywordRankChart } from "@/components/keyword-rank-chart";
 
 export default function ProjectDetails() {
+  const { toast } = useToast();
   const [match, params] = useRoute("/projects/:id");
   const projectId = params ? parseInt(params.id) : null;
   const [, setLocation] = useLocation();
