@@ -104,17 +104,17 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500 bg-[#F7F7F7] dark:bg-[#18191A] min-h-screen p-8">
       <div>
-        <h1 className="text-3xl font-display font-bold text-white mb-1">Settings</h1>
-        <p className="text-muted-foreground">Manage your application preferences and integrations.</p>
+        <h1 className="text-3xl font-display font-bold text-[#050505] dark:text-[#E4E6EB] mb-1">Settings</h1>
+        <p className="text-[#050505]/70 dark:text-[#B0B3B8]">Manage your application preferences and integrations.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl">
+        <Card className="border-border dark:border-white/10 bg-white dark:bg-[#242526] backdrop-blur-sm shadow-xl">
           <CardHeader>
-            <CardTitle className="text-lg">Notifications</CardTitle>
-            <CardDescription>Configure how you receive alerts.</CardDescription>
+            <CardTitle className="text-lg text-[#050505] dark:text-[#E4E6EB]">Notifications</CardTitle>
+            <CardDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">Configure how you receive alerts.</CardDescription>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -123,10 +123,10 @@ export default function SettingsPage() {
                   control={form.control}
                   name="emailNotifications"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border border-white/5 p-4 bg-white/5">
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border border-[#050505]/5 dark:border-white/10 p-4 bg-[#050505]/5 dark:bg-white/5">
                       <div className="space-y-0.5">
-                        <FormLabel className="text-base font-medium text-white">Email Alerts</FormLabel>
-                        <FormDescription>
+                        <FormLabel className="text-base font-medium text-[#050505] dark:text-[#E4E6EB]">Email Alerts</FormLabel>
+                        <FormDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">
                           Receive notifications when keywords reach Top 3.
                         </FormDescription>
                       </div>
@@ -146,9 +146,9 @@ export default function SettingsPage() {
                   name="notificationEmail"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Notification Email</FormLabel>
+                      <FormLabel className="text-[#050505] dark:text-[#E4E6EB]">Notification Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="you@example.com" {...field} value={field.value || ""} className="bg-background/50 border-white/10" />
+                        <Input placeholder="you@example.com" {...field} value={field.value || ""} className="bg-background/50 border-[#050505]/10 dark:border-white/10 text-[#050505] dark:text-white" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -165,25 +165,25 @@ export default function SettingsPage() {
         </Card>
 
         <div className="space-y-6">
-          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
+          <Card className="border-border dark:border-white/10 bg-white dark:bg-[#242526] backdrop-blur-sm shadow-xl h-fit">
             <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
+              <CardTitle className="text-lg flex items-center gap-2 text-[#050505] dark:text-[#E4E6EB]">
                 <HardDrive className="w-5 h-5 text-primary" />
                 Database Stats
               </CardTitle>
-              <CardDescription>System data usage and storage details.</CardDescription>
+              <CardDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">System data usage and storage details.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl border border-white/5 bg-white/5">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Keywords</p>
-                  <p className="text-2xl font-bold text-white">
+                <div className="p-4 rounded-xl border border-[#050505]/5 dark:border-white/10 bg-[#050505]/5 dark:bg-white/5">
+                  <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8] uppercase tracking-wider mb-1">Keywords</p>
+                  <p className="text-2xl font-bold text-[#050505] dark:text-[#E4E6EB]">
                     {isLoadingStats ? <Loader2 className="w-4 h-4 animate-spin" /> : dbStats?.totalKeywords}
                   </p>
                 </div>
-                <div className="p-4 rounded-xl border border-white/5 bg-white/5">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">History Rows</p>
-                  <p className="text-2xl font-bold text-white">
+                <div className="p-4 rounded-xl border border-[#050505]/5 dark:border-white/10 bg-[#050505]/5 dark:bg-white/5">
+                  <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8] uppercase tracking-wider mb-1">History Rows</p>
+                  <p className="text-2xl font-bold text-[#050505] dark:text-[#E4E6EB]">
                     {isLoadingStats ? <Loader2 className="w-4 h-4 animate-spin" /> : dbStats?.totalRankHistory}
                   </p>
                 </div>
@@ -191,7 +191,7 @@ export default function SettingsPage() {
               
               <Button 
                 variant="outline" 
-                className="w-full border-white/10 hover:bg-white/5"
+                className="w-full border-[#050505]/10 dark:border-white/10 hover:bg-[#050505]/5 dark:hover:bg-white/5 text-[#050505] dark:text-[#E4E6EB]"
                 onClick={handleExport}
               >
                 <Download className="w-4 h-4 mr-2" />
@@ -200,20 +200,20 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl h-fit">
+          <Card className="border-border dark:border-white/10 bg-white dark:bg-[#242526] backdrop-blur-sm shadow-xl h-fit">
             <CardHeader>
-              <CardTitle className="text-lg">System Status</CardTitle>
-              <CardDescription>Status of external service integrations.</CardDescription>
+              <CardTitle className="text-lg text-[#050505] dark:text-[#E4E6EB]">System Status</CardTitle>
+              <CardDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">Status of external service integrations.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
+              <div className="flex items-center justify-between p-4 rounded-xl border border-[#050505]/5 dark:border-white/10 bg-[#050505]/5 dark:bg-white/5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
                     <Database className="w-5 h-5 text-blue-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-white">DataForSEO API</p>
-                    <p className="text-xs text-muted-foreground">Ranking data provider</p>
+                    <p className="font-medium text-[#050505] dark:text-[#E4E6EB]">DataForSEO API</p>
+                    <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8]">Ranking data provider</p>
                   </div>
                 </div>
                 {integrationStatus?.dataForSeo ? (
@@ -227,14 +227,14 @@ export default function SettingsPage() {
                 )}
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-xl border border-white/5 bg-white/5">
+              <div className="flex items-center justify-between p-4 rounded-xl border border-[#050505]/5 dark:border-white/10 bg-[#050505]/5 dark:bg-white/5">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
                     <Mail className="w-5 h-5 text-purple-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-white">Email Service</p>
-                    <p className="text-xs text-muted-foreground">Resend API</p>
+                    <p className="font-medium text-[#050505] dark:text-[#E4E6EB]">Email Service</p>
+                    <p className="text-xs text-[#050505]/70 dark:text-[#B0B3B8]">Resend API</p>
                   </div>
                 </div>
                 {integrationStatus?.email ? (
@@ -251,7 +251,7 @@ export default function SettingsPage() {
               {integrationStatus?.email && (
                 <Button 
                   variant="outline" 
-                  className="w-full border-white/10 hover:bg-white/5"
+                  className="w-full border-[#050505]/10 dark:border-white/10 hover:bg-[#050505]/5 dark:hover:bg-white/5 text-[#050505] dark:text-[#E4E6EB]"
                   onClick={() => testEmailMutation.mutate()}
                   disabled={testEmailMutation.isPending}
                 >
@@ -266,13 +266,13 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-border bg-card/40 backdrop-blur-sm shadow-xl">
+          <Card className="border-border dark:border-white/10 bg-white dark:bg-[#242526] backdrop-blur-sm shadow-xl">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
                 <ListTodo className="w-5 h-5 text-primary" />
-                <CardTitle className="text-lg">Activity Logs</CardTitle>
+                <CardTitle className="text-lg text-[#050505] dark:text-[#E4E6EB]">Activity Logs</CardTitle>
               </div>
-              <CardDescription>Real-time list of recent backend actions.</CardDescription>
+              <CardDescription className="text-[#050505]/70 dark:text-[#B0B3B8]">Real-time list of recent backend actions.</CardDescription>
             </CardHeader>
             <CardContent>
               {isLoadingLogs ? (
@@ -280,15 +280,15 @@ export default function SettingsPage() {
                   <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
                 </div>
               ) : logs?.length === 0 ? (
-                <p className="text-sm text-center py-8 text-muted-foreground">No recent activity found.</p>
+                <p className="text-sm text-center py-8 text-[#050505]/70 dark:text-[#B0B3B8]">No recent activity found.</p>
               ) : (
                 <div className="space-y-4">
                   {logs?.map((log: any) => (
                     <div key={log.id} className="flex items-start gap-3 text-sm group">
                       <div className="mt-1 w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors shrink-0" />
                       <div className="space-y-1">
-                        <p className="text-white font-medium leading-none">{log.message}</p>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <p className="text-[#050505] dark:text-[#E4E6EB] font-medium leading-none">{log.message}</p>
+                        <div className="flex items-center gap-1 text-xs text-[#050505]/70 dark:text-[#B0B3B8]">
                           <Clock className="w-3 h-3" />
                           {format(new Date(log.timestamp), "MMM d, h:mm:ss a")}
                         </div>
