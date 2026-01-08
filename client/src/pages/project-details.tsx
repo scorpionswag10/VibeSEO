@@ -431,8 +431,8 @@ function CompetitorsTab({ projectId }: { projectId: number }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-           <h3 className="text-lg font-medium text-[#050505] dark:text-[#E4E6EB]">Competitor Analysis</h3>
+        <div className="flex flex-col">
+           <h3 className="text-lg font-bold text-[#050505] dark:text-[#E4E6EB]">Competitor Analysis</h3>
            <p className="text-sm text-[#050505]/70 dark:text-[#B0B3B8]">Monitor backlinks and metrics for competing domains.</p>
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
