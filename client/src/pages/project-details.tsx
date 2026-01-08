@@ -88,7 +88,7 @@ export default function ProjectDetails() {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-8 animate-in fade-in duration-500 bg-[#F7F7F7] min-h-screen p-8">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/50 pb-6">
         <div className="flex items-center gap-4">
@@ -97,10 +97,10 @@ export default function ProjectDetails() {
           </Button>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-display font-bold text-white">{project.name}</h1>
+              <h1 className="text-2xl font-display font-bold text-[#050505] dark:text-white">{project.name}</h1>
               <Badge variant="outline" className="border-primary/20 bg-primary/10 text-primary text-xs font-normal">Active</Badge>
             </div>
-            <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground text-sm hover:text-white hover:underline flex items-center gap-1 mt-1">
+            <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-[#050505]/70 dark:text-muted-foreground text-sm hover:text-[#050505] dark:hover:text-white hover:underline flex items-center gap-1 mt-1">
               {project.url}
               <ExternalLink className="w-3 h-3" />
             </a>
@@ -224,7 +224,7 @@ function KeywordsTab({ projectId }: { projectId: number }) {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-white">Tracked Keywords</h3>
+          <h3 className="text-lg font-medium text-[#050505] dark:text-white">Tracked Keywords</h3>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button size="sm" className="bg-primary hover:bg-primary/90">
@@ -263,10 +263,10 @@ function KeywordsTab({ projectId }: { projectId: number }) {
           </Dialog>
         </div>
 
-        <div className="bg-card border border-white/5 rounded-2xl overflow-hidden shadow-lg shadow-black/20">
+        <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl overflow-hidden shadow-lg shadow-black/20">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-white/5 text-muted-foreground border-b border-white/5">
+              <thead className="bg-[#050505]/5 dark:bg-white/5 text-[#050505] dark:text-muted-foreground border-b border-[#050505]/5 dark:border-white/5">
                 <tr>
                   <th className="px-6 py-4 text-left font-medium">Keyword</th>
                   <th className="px-6 py-4 text-left font-medium">Location</th>
@@ -293,8 +293,8 @@ function KeywordsTab({ projectId }: { projectId: number }) {
                         )}
                         onClick={() => setSelectedKeywordId(keyword.id)}
                       >
-                        <td className="px-6 py-4 font-medium text-white">{keyword.term}</td>
-                        <td className="px-6 py-4 text-muted-foreground">{keyword.location}</td>
+                        <td className="px-6 py-4 font-medium text-[#050505] dark:text-white">{keyword.term}</td>
+                        <td className="px-6 py-4 text-[#050505]/70 dark:text-muted-foreground">{keyword.location}</td>
                         <td className="px-6 py-4 text-center">
                           {latestRank ? (
                             <Badge variant="outline" className={cn(
@@ -333,12 +333,12 @@ function KeywordsTab({ projectId }: { projectId: number }) {
       </div>
 
       <div className="space-y-6">
-        <h3 className="text-lg font-medium text-white">Performance</h3>
+        <h3 className="text-lg font-medium text-[#050505] dark:text-white">Performance</h3>
         {selectedKeyword ? (
           <div className="space-y-6">
-            <Card className="border-border bg-card/40 backdrop-blur-sm overflow-hidden">
+            <Card className="border-border bg-white dark:bg-card/40 backdrop-blur-sm overflow-hidden">
               <CardHeader className="pb-2">
-                <CardTitle className="text-base flex items-center gap-2">
+                <CardTitle className="text-base flex items-center gap-2 text-[#050505] dark:text-white">
                   <LineChartIcon className="w-4 h-4 text-primary" />
                   30-Day Ranking Trend: "{selectedKeyword.term}"
                 </CardTitle>
@@ -348,8 +348,8 @@ function KeywordsTab({ projectId }: { projectId: number }) {
               </CardContent>
             </Card>
             
-            <div className="bg-card border border-white/5 rounded-2xl p-6">
-              <h4 className="font-medium text-white mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-6">
+              <h4 className="font-medium text-[#050505] dark:text-white mb-4 flex items-center gap-2">
                 <LayoutList className="w-4 h-4 text-primary" />
                 Google SERP Snapshot (Top 10)
               </h4>
@@ -366,18 +366,18 @@ function KeywordsTab({ projectId }: { projectId: number }) {
               </div>
             </div>
 
-            <div className="bg-card border border-white/5 rounded-2xl p-6">
-              <h4 className="font-medium text-white mb-4 flex items-center gap-2">
+            <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-6">
+              <h4 className="font-medium text-[#050505] dark:text-white mb-4 flex items-center gap-2">
                 <ShieldAlert className="w-4 h-4 text-primary" />
                 Insights
               </h4>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-[#050505]/70 dark:text-muted-foreground">
                 Ranking history is tracked daily. Last checked {selectedKeyword.lastCheck ? new Date(selectedKeyword.lastCheck).toLocaleDateString() : 'Never'}.
               </p>
             </div>
           </div>
         ) : (
-          <div className="bg-card border border-white/5 rounded-2xl p-8 text-center text-muted-foreground">
+          <div className="bg-white dark:bg-card border border-[#050505]/5 dark:border-white/5 rounded-2xl p-8 text-center text-[#050505]/70 dark:text-muted-foreground">
             Select a keyword to view performance trends.
           </div>
         )}
