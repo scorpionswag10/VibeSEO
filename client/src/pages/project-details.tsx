@@ -153,19 +153,19 @@ export default function ProjectDetails() {
         <TabsList className="bg-[#E4E6EB] dark:bg-white/5 border border-[#050505]/5 dark:border-white/5 p-1 rounded-xl w-full md:w-auto">
           <TabsTrigger 
             value="keywords" 
-            className="rounded-lg data-[state=active]:bg-[#050505] !important dark:data-[state=active]:bg-primary data-[state=active]:text-white !important px-6 hover:bg-[#E4E6EB] !important dark:hover:bg-white/10 text-[#050505] !important dark:text-[#B0B3B8] transition-colors"
+            className="rounded-lg data-[state=active]:bg-[#050505] dark:data-[state=active]:bg-primary data-[state=active]:text-white px-6 hover:bg-[#F0F2F5] dark:hover:bg-white/10 text-[#050505] dark:text-[#B0B3B8] transition-colors"
           >
             Keywords
           </TabsTrigger>
           <TabsTrigger 
             value="competitors" 
-            className="rounded-lg data-[state=active]:bg-[#050505] !important dark:data-[state=active]:bg-primary data-[state=active]:text-white !important px-6 hover:bg-[#E4E6EB] !important dark:hover:bg-white/10 text-[#050505] !important dark:text-[#B0B3B8] transition-colors"
+            className="rounded-lg data-[state=active]:bg-[#050505] dark:data-[state=active]:bg-primary data-[state=active]:text-white px-6 hover:bg-[#F0F2F5] dark:hover:bg-white/10 text-[#050505] dark:text-[#B0B3B8] transition-colors"
           >
             Competitors
           </TabsTrigger>
           <TabsTrigger 
             value="settings" 
-            className="rounded-lg data-[state=active]:bg-[#050505] !important dark:data-[state=active]:bg-primary data-[state=active]:text-white !important px-6 hover:bg-[#E4E6EB] !important dark:hover:bg-white/10 text-[#050505] !important dark:text-[#B0B3B8] transition-colors"
+            className="rounded-lg data-[state=active]:bg-[#050505] dark:data-[state=active]:bg-primary data-[state=active]:text-white px-6 hover:bg-[#F0F2F5] dark:hover:bg-white/10 text-[#050505] dark:text-[#B0B3B8] transition-colors"
           >
             Settings
           </TabsTrigger>
