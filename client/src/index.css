@@ -70,17 +70,54 @@
   border-color: #DFE3EE !important;
 }
 
-:root:not(.dark) {
+:root:not(.dark) body {
+  background-color: #F7F7F7 !important;
   color: #050505 !important;
 }
 
-:root:not(.dark) *:hover {
-  background-color: #E4E6EB !important;
+:root:not(.dark) h1, 
+:root:not(.dark) h2, 
+:root:not(.dark) h3, 
+:root:not(.dark) h4, 
+:root:not(.dark) h5, 
+:root:not(.dark) h6, 
+:root:not(.dark) p, 
+:root:not(.dark) span, 
+:root:not(.dark) label {
   color: #050505 !important;
+}
+
+:root:not(.dark) .bg-card, 
+:root:not(.dark) .bg-white,
+:root:not(.dark) .bg-sidebar,
+:root:not(.dark) [role="tabpanel"],
+:root:not(.dark) .rounded-2xl {
+  background-color: #FFFFFF !important;
+  opacity: 1 !important;
 }
 
 :root:not(.dark) [data-state=active] {
-  color: #050505 !important;
+  background-color: #E7F3FF !important;
+  color: #1877F2 !important;
+}
+
+:root:not(.dark) [data-state=active] svg {
+  color: #1877F2 !important;
+}
+
+:root:not(.dark) *:hover {
+  background-color: #F2F2F2 !important;
+}
+
+:root:not(.dark) header, 
+:root:not(.dark) .bg-primary {
+  background-color: #1877F2 !important;
+  color: #FFFFFF !important;
+}
+
+:root:not(.dark) header *, 
+:root:not(.dark) .bg-primary * {
+  color: #FFFFFF !important;
 }
 
 /* Custom Scrollbar for dark theme */
